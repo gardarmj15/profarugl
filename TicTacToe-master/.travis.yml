@@ -1,0 +1,30 @@
+language: java
+jdk:
+  - oraclejdk8
+
+addons:
+  apt:
+    sources:
+    - heroku
+    packages:
+    - heroku-toolbelt
+
+script:
+  - ./gradlew clean
+  - ./gradlew check
+  - git remote add heroku git@heroku.com:hnetusmjor.git
+  # Add your Heroku API key:
+  - export HEROKU_API_KEY=de4a0c68-6c1b-4d1d-a802-57e478dd1b62
+  # Turn off warnings about SSH keys:
+  - echo "Host heroku.com" >> ~/.ssh/config
+  - echo "   StrictHostKeyChecking no" >> ~/.ssh/config
+  - echo "   CheckHostIP no" >> ~/.ssh/config
+  - echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
+  # Clear your current Heroku SSH keys:
+  - heroku keys:clear
+  # Add a new SSH key to Heroku
+  - yes | heroku keys:add
+  # Push to Heroku!
+  - yes | git push heroku master
+  - sleep 15
+  - ./gradlew seleniumXvfb

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+./bin/clean
+./bin/build
+./gradlew installDist
+./bin/jacoco
+./gradlew markdownToHtml

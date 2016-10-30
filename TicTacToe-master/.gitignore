@@ -1,0 +1,9 @@
+.gradle
+.gradle/
+build/
+
+*.class
+*.war
+*.ear
+.DS_Store
+docs/html
